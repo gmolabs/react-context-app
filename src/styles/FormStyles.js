@@ -4,10 +4,11 @@ const styles = theme => ({
         width: "auto",
         marginLeft: theme.spacing(3),
         marginRight: theme.spacing(3),
+        height: "100vh",
         [theme.breakpoints.up("sm")]: {
             width: 400,
             marginLeft: "auto",
-            marginRight: "auto"
+            marginRight: "auto",
         }
     },
     paper: {
