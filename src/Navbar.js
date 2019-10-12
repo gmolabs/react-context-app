@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import IconButton from "@material-ui/core/IconButton"
@@ -10,7 +10,6 @@ import { withStyles } from "@material-ui/core/styles"
 import styles from "./styles/NavBarStyles"
 import { ThemeContext } from "./contexts/ThemeContext"
 import { LanguageContext } from "./contexts/LanguageContext"
-import { withLanguageContext } from "./contexts/LanguageContext"
 
 const content = {
     english: {
@@ -27,23 +26,21 @@ const content = {
     }
 }
 
-class Navbar extends Component {
-    static contextType = ThemeContext;
-    render() {
-        const { isDarkMode, toggleTheme } = this.context;
-        const { classes } = this.props
-        const { language } = this.props.languageContext
-        const { search, flag } = content[language]
-        return (
-            <LanguageContext.Consumer>
-                {context => 
+function Navbar(props) {
+    const { isDarkMode, toggleTheme } = useContext(ThemeContext)
+    const { language } = useContext(LanguageContext)
+    const { classes } = props
+    const { search, flag } = content[language]
+    return (
+        <LanguageContext.Consumer>
+            {context =>
                 <div className={classes.root}>
-                    <AppBar postition="static" color={ isDarkMode ? "default" : "primary" }>
+                    <AppBar postition="static" color={isDarkMode ? "default" : "primary"}>
                         <Toolbar>
                             <IconButton className={classes.menuButton} color="inherit">
                                 <span>{flag}</span>
                             </IconButton>
-                            <Typography 
+                            <Typography
                                 className={classes.title}
                                 variant='h6'
                                 color="inherit"
@@ -66,10 +63,8 @@ class Navbar extends Component {
                     </AppBar>
                 </div>
             }
-            </LanguageContext.Consumer>
-            
-        )
-    }
+        </LanguageContext.Consumer>
+    )
 }
 
-export default withLanguageContext(withStyles(styles)(Navbar)) 
+export default withStyles(styles)(Navbar)
